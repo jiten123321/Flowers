@@ -1166,19 +1166,16 @@
     }
   })();
 
-  // The published song. Replace SONG_DRIVE_ID with another Drive file ID
-  // (or replace SONG_URL_CANDIDATES below entirely) to change the song.
-  const SONG_DRIVE_ID = '1TCClZERefwbdmNXx40wpjADJKo3GiGYQ';
-  const SONG_LABEL = 'a quiet song for you';
+  // The published song. Replace SONG_URL to change the song.
+  // GitHub raw is reliable for <audio> streaming.
+  const SONG_URL = 'https://raw.githubusercontent.com/jiten123321/song/main/Love%20You%20Zindagi%20Dear%20Zindagi%20128%20Kbps.mp3';
+  const SONG_LABEL = 'Love You Zindagi';
 
-  // For Google Drive files, browsers reach the audio bytes more reliably
-  // through one of several URL forms — we try them in order until one plays.
-  const SONG_URL_CANDIDATES = SONG_DRIVE_ID ? [
-    'https://drive.google.com/uc?export=download&id=' + SONG_DRIVE_ID,
-    'https://drive.usercontent.google.com/download?id=' + SONG_DRIVE_ID + '&export=download&authuser=0',
-    'https://docs.google.com/uc?export=download&id=' + SONG_DRIVE_ID,
+  // Fallback chain — used in order if the primary URL fails.
+  const SONG_URL_CANDIDATES = [
+    SONG_URL,
     'song.mp3'   // last resort: a file sitting next to index.html
-  ] : ['song.mp3'];
+  ];
 
   /* ============================================
      MUSIC PLAYER
