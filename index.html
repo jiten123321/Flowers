@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<meta name="theme-color" content="#FBF4EC"/>
 <title>For You — A Quiet Garden</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +50,12 @@
     font-weight: 400;
     min-height: 100vh;
     position: relative;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
   }
+
+  img, svg { max-width: 100%; height: auto; }
+  button { font-family: inherit; -webkit-appearance: none; }
 
   /* ============================================
      AMBIENT MORNING GLOW
@@ -898,13 +904,97 @@
      RESPONSIVE
      ============================================ */
   @media (max-width: 720px) {
-    .message-card { padding: 60px 32px 50px; }
-    .player { padding: 44px 28px 32px; }
-    .vinyl-stage { width: 180px; height: 180px; }
-    .vinyl-label { width: 64px; height: 64px; }
-    .hero { padding: 60px 20px 40px; }
-    .ornament { margin: 70px 0 50px; }
-    .hero-sub::before, .hero-sub::after { width: 24px; margin: 0 10px; }
+    .stage { padding: 0 18px; }
+    .hero { padding: 56px 16px 36px; }
+    .hero-sub { margin-bottom: 44px; letter-spacing: 0.3em; }
+    .hero-sub::before, .hero-sub::after { width: 22px; margin: 0 10px; }
+
+    .ornament { margin: 60px 0 40px; gap: 12px; }
+    .ornament .line { width: clamp(48px, 18vw, 110px); }
+
+    .message-section { padding: 30px 16px 70px; }
+    .message-card { padding: 52px 26px 44px; }
+    .message-card::before,
+    .message-card::after { width: 22px; height: 22px; }
+
+    .music-section { padding: 24px 16px 80px; }
+    .music-eyebrow { margin-bottom: 40px; }
+
+    .player {
+      padding: 40px 22px 30px;
+      border-radius: 20px;
+      max-width: 100%;
+    }
+
+    .vinyl-stage { width: 170px; height: 170px; margin-bottom: 28px; }
+    .vinyl-label { width: 60px; height: 60px; }
+
+    .waveform { height: 30px; gap: 3px; margin: 12px 0 22px; }
+    .track-info { font-size: 16px; }
+
+    .progress-row { gap: 10px; font-size: 10px; letter-spacing: 0.15em; margin-bottom: 24px; }
+    .controls { gap: 22px; }
+    .ctrl-btn { width: 46px; height: 46px; }
+    .play-btn { width: 64px; height: 64px; }
+
+    .footer-note { padding: 30px 20px 70px; }
+
+    .welcome-overlay { padding: 32px 22px; padding-bottom: max(32px, env(safe-area-inset-bottom)); }
+    .welcome-card { gap: 18px; }
+    .welcome-mark { font-size: clamp(48px, 14vw, 72px); }
+    .welcome-eyebrow { font-size: 11px; letter-spacing: 0.38em; }
+    .welcome-eyebrow::before, .welcome-eyebrow::after { width: 18px; margin: 0 10px; }
+    .welcome-body { font-size: clamp(19px, 4.6vw, 24px); }
+    .welcome-enter { padding: 13px 30px; font-size: 11px; letter-spacing: 0.3em; }
+  }
+
+  @media (max-width: 420px) {
+    .stage { padding: 0 14px; }
+    .hero { padding: 44px 12px 28px; }
+    .hero-title { line-height: 1; }
+    .bouquet-count { margin-top: 22px; font-size: clamp(20px, 5.5vw, 26px); padding: 0 8px; }
+
+    .ornament { margin: 44px 0 32px; }
+    .ornament .line { width: clamp(36px, 14vw, 80px); }
+    .ornament .leaf { font-size: 28px; }
+
+    .message-section { padding: 24px 12px 60px; }
+    .message-card { padding: 44px 20px 38px; }
+    .message-eyebrow { font-size: 11px; letter-spacing: 0.35em; margin-bottom: 22px; }
+
+    .music-section { padding: 18px 12px 70px; }
+    .music-eyebrow { margin-bottom: 32px; }
+
+    .player { padding: 32px 18px 26px; border-radius: 18px; }
+    .vinyl-stage { width: 150px; height: 150px; margin-bottom: 22px; }
+    .vinyl-label { width: 54px; height: 54px; }
+    .waveform { height: 26px; margin: 10px 0 18px; }
+    .track-info { font-size: 15px; }
+    .track-status { font-size: 10px; letter-spacing: 0.28em; margin-bottom: 22px; }
+
+    .progress-row { gap: 8px; font-size: 9px; letter-spacing: 0.12em; }
+    .controls { gap: 18px; }
+    .ctrl-btn { width: 42px; height: 42px; }
+    .ctrl-btn svg { width: 14px; height: 14px; }
+    .play-btn { width: 60px; height: 60px; }
+    .play-btn svg { width: 18px; height: 18px; }
+
+    .footer-note { padding: 20px 16px 56px; }
+    .footer-note .signature::before,
+    .footer-note .signature::after { margin: 0 8px; }
+
+    .welcome-overlay { padding: 24px 16px; padding-bottom: max(24px, env(safe-area-inset-bottom)); }
+    .welcome-card { gap: 14px; }
+    .welcome-mark { font-size: clamp(42px, 13vw, 60px); }
+    .welcome-title { font-size: clamp(34px, 10.5vw, 50px); }
+    .welcome-body { font-size: clamp(17px, 4.4vw, 21px); }
+    .welcome-enter { padding: 12px 24px; font-size: 10px; letter-spacing: 0.26em; }
+    .welcome-hint { font-size: 19px; }
+  }
+
+  /* Trim petal animation cost on small screens */
+  @media (max-width: 420px) {
+    .petals-layer .petal:nth-child(n+13) { display: none; }
   }
 
   /* Reduced motion */
