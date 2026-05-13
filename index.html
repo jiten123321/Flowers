@@ -1043,6 +1043,63 @@
     30%           { transform: scale(1.05); }
   }
 
+  /* floating "scroll for more" pill */
+  .scroll-hint {
+    position: fixed;
+    left: 50%;
+    bottom: 26px;
+    z-index: 12;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 22px 8px;
+    background: linear-gradient(155deg, rgba(255, 250, 244, 0.9), rgba(248, 227, 222, 0.9));
+    border: 1px solid rgba(201, 168, 118, 0.45);
+    border-radius: 999px;
+    color: var(--rose-deep);
+    font-family: 'Italianno', cursive;
+    font-size: 22px;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 10px 26px rgba(201, 127, 124, 0.22);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, 16px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .scroll-hint.visible {
+    opacity: 1;
+    pointer-events: auto;
+    animation: scrollBob 2.6s ease-in-out infinite;
+  }
+
+  .scroll-hint:hover {
+    color: var(--rose-shadow);
+    border-color: var(--gold);
+  }
+
+  .scroll-hint .chevron {
+    width: 16px;
+    height: 16px;
+    display: block;
+    animation: chevronBounce 1.8s ease-in-out infinite;
+  }
+
+  @keyframes scrollBob {
+    0%, 100% { transform: translate(-50%, 0); }
+    50%      { transform: translate(-50%, -6px); }
+  }
+
+  @keyframes chevronBounce {
+    0%, 100% { transform: translateY(-1px); opacity: 0.7; }
+    50%      { transform: translateY(4px);  opacity: 1; }
+  }
+
   /* ============================================
      RESPONSIVE
      ============================================ */
@@ -1091,6 +1148,9 @@
     .welcome-enter { padding: 13px 30px; font-size: 11px; letter-spacing: 0.3em; }
 
     .for-isha { top: 12px; right: 12px; bottom: auto; font-size: 16px; padding: 5px 12px; }
+
+    .scroll-hint { bottom: 18px; font-size: 19px; padding: 8px 18px 6px; }
+    .scroll-hint .chevron { width: 14px; height: 14px; }
   }
 
   @media (max-width: 420px) {
@@ -1532,6 +1592,12 @@
   <!-- Little ribbon -->
   <div class="for-isha" aria-hidden="true"><span class="heart-glyph">♡</span> for Isha</div>
 
+  <!-- Floating scroll hint -->
+  <button class="scroll-hint" id="scrollHint" type="button" aria-label="Scroll for more">
+    <span>scroll for more ♡</span>
+    <svg class="chevron" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+  </button>
+
 <script>
   /* ============================================
      FLOATING PETALS
@@ -1632,6 +1698,47 @@
     // and on Escape as a quiet escape hatch.
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && document.body.classList.contains('locked')) dismiss();
+    });
+  })();
+
+  /* ============================================
+     SCROLL HINT
+     ============================================ */
+  (function initScrollHint() {
+    const hint = document.getElementById('scrollHint');
+    if (!hint) return;
+
+    let revealed = false;
+    function update() {
+      const showable = revealed && window.scrollY < 80;
+      hint.classList.toggle('visible', showable);
+    }
+
+    function reveal() {
+      revealed = true;
+      update();
+    }
+
+    // If the welcome overlay exists, wait for it to be dismissed.
+    const overlay = document.getElementById('welcomeOverlay');
+    if (overlay && document.body.classList.contains('locked')) {
+      const obs = new MutationObserver(() => {
+        if (overlay.classList.contains('dismissed')) {
+          obs.disconnect();
+          setTimeout(reveal, 1200);
+        }
+      });
+      obs.observe(overlay, { attributes: true, attributeFilter: ['class'] });
+    } else {
+      setTimeout(reveal, 1400);
+    }
+
+    window.addEventListener('scroll', update, { passive: true });
+
+    hint.addEventListener('click', () => {
+      const target = document.querySelector('.message-section')
+                  || document.querySelector('.ornament');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   })();
 
