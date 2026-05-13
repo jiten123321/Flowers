@@ -649,327 +649,6 @@
     height: 20px;
   }
 
-  /* Upload area */
-  .upload-area {
-    margin-top: 36px;
-    padding-top: 28px;
-    border-top: 1px solid rgba(201, 168, 118, 0.2);
-  }
-
-  .upload-tabs {
-    display: flex;
-    justify-content: center;
-    gap: 6px;
-    margin-bottom: 22px;
-  }
-
-  .upload-tab {
-    background: transparent;
-    border: 1px solid rgba(201, 168, 118, 0.35);
-    color: var(--ink-soft);
-    font-family: 'Marcellus', serif;
-    font-size: 10px;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    padding: 8px 16px;
-    border-radius: 2px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .upload-tab:hover { color: var(--gold-deep); }
-
-  .upload-tab.active {
-    background: rgba(201, 168, 118, 0.15);
-    border-color: var(--gold);
-    color: var(--gold-deep);
-  }
-
-  .upload-panel { display: none; }
-  .upload-panel.active { display: block; animation: fadeIn 0.4s ease-out; }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(4px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .upload-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 28px;
-    background: transparent;
-    border: 1px solid var(--gold);
-    color: var(--gold-deep);
-    font-family: 'Marcellus', serif;
-    font-size: 12px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.4s ease;
-    border-radius: 2px;
-  }
-
-  .upload-btn:hover {
-    background: var(--gold);
-    color: var(--cream);
-    letter-spacing: 0.4em;
-  }
-
-  .upload-btn svg { width: 14px; height: 14px; }
-
-  .upload-hint {
-    margin-top: 14px;
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 14px;
-    color: var(--ink-soft);
-  }
-
-  input[type="file"] { display: none; }
-
-  /* Drop zone */
-  .drop-zone {
-    margin-top: 16px;
-    padding: 22px 18px;
-    border: 1.5px dashed rgba(201, 168, 118, 0.45);
-    border-radius: 6px;
-    color: var(--ink-soft);
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 13px;
-    transition: all 0.3s ease;
-  }
-
-  .drop-zone.dragging {
-    border-color: var(--rose-deep);
-    background: rgba(248, 227, 222, 0.4);
-    color: var(--rose-deep);
-  }
-
-  /* Link / URL input */
-  .link-input-row {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 12px;
-  }
-
-  .link-input {
-    flex: 1;
-    padding: 12px 14px;
-    background: rgba(255, 250, 244, 0.65);
-    border: 1px solid rgba(201, 168, 118, 0.4);
-    color: var(--ink);
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 15px;
-    border-radius: 2px;
-    outline: none;
-    transition: border-color 0.3s ease, background 0.3s ease;
-  }
-
-  .link-input:focus {
-    border-color: var(--gold);
-    background: rgba(255, 250, 244, 0.9);
-  }
-
-  .link-input::placeholder {
-    color: rgba(123, 104, 98, 0.6);
-    font-style: italic;
-  }
-
-  .link-load-btn {
-    padding: 0 18px;
-    background: var(--gold);
-    color: var(--cream);
-    border: none;
-    border-radius: 2px;
-    font-family: 'Marcellus', serif;
-    font-size: 11px;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-
-  .link-load-btn:hover { background: var(--gold-deep); }
-
-  /* Title input */
-  .title-input {
-    width: 100%;
-    padding: 10px 14px;
-    background: rgba(255, 250, 244, 0.65);
-    border: 1px solid rgba(201, 168, 118, 0.3);
-    color: var(--ink);
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 14px;
-    font-style: italic;
-    border-radius: 2px;
-    outline: none;
-    margin-bottom: 12px;
-  }
-
-  .title-input:focus {
-    border-color: var(--gold);
-  }
-
-  /* Publish / share */
-  .publish-row {
-    margin-top: 22px;
-    padding-top: 22px;
-    border-top: 1px dashed rgba(201, 168, 118, 0.25);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: center;
-  }
-
-  .publish-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 22px;
-    background: linear-gradient(155deg, var(--rose), var(--rose-deep));
-    color: white;
-    border: none;
-    border-radius: 2px;
-    font-family: 'Marcellus', serif;
-    font-size: 11px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 8px 20px rgba(201, 127, 124, 0.3);
-  }
-
-  .publish-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 26px rgba(201, 127, 124, 0.45);
-  }
-
-  .publish-btn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-  }
-
-  .publish-btn svg { width: 13px; height: 13px; }
-
-  .share-result {
-    display: none;
-    width: 100%;
-    margin-top: 8px;
-    padding: 12px 14px;
-    background: rgba(255, 250, 244, 0.7);
-    border: 1px solid rgba(201, 168, 118, 0.35);
-    border-radius: 2px;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 13px;
-    color: var(--ink);
-    word-break: break-all;
-    text-align: left;
-    position: relative;
-  }
-
-  .share-result.visible { display: block; }
-
-  .share-result-label {
-    display: block;
-    font-family: 'Marcellus', serif;
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--gold-deep);
-    margin-bottom: 6px;
-  }
-
-  .copy-btn {
-    margin-top: 8px;
-    background: transparent;
-    border: 1px solid var(--gold);
-    color: var(--gold-deep);
-    padding: 5px 12px;
-    font-family: 'Marcellus', serif;
-    font-size: 10px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    cursor: pointer;
-    border-radius: 2px;
-    transition: all 0.3s ease;
-  }
-
-  .copy-btn:hover { background: var(--gold); color: var(--cream); }
-
-  /* Help disclosure */
-  .help-toggle {
-    margin-top: 20px;
-    background: transparent;
-    border: none;
-    color: var(--ink-soft);
-    font-family: 'Marcellus', serif;
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    cursor: pointer;
-    text-decoration: underline;
-    text-decoration-color: rgba(201, 168, 118, 0.4);
-    text-underline-offset: 4px;
-  }
-
-  .help-panel {
-    display: none;
-    margin-top: 16px;
-    padding: 18px 20px;
-    background: rgba(255, 250, 244, 0.55);
-    border: 1px solid rgba(201, 168, 118, 0.25);
-    border-radius: 4px;
-    text-align: left;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 14px;
-    color: var(--ink);
-    line-height: 1.55;
-  }
-
-  .help-panel.visible { display: block; animation: fadeIn 0.4s ease-out; }
-
-  .help-panel h4 {
-    font-family: 'Marcellus', serif;
-    font-size: 11px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--gold-deep);
-    margin-bottom: 8px;
-    margin-top: 14px;
-    font-weight: 400;
-  }
-
-  .help-panel h4:first-child { margin-top: 0; }
-
-  .help-panel ol, .help-panel ul {
-    margin: 6px 0 6px 22px;
-  }
-
-  .help-panel li { margin: 4px 0; }
-
-  .help-panel code {
-    font-family: ui-monospace, Menlo, monospace;
-    font-size: 12px;
-    background: rgba(201, 168, 118, 0.15);
-    padding: 1px 6px;
-    border-radius: 2px;
-    color: var(--rose-shadow);
-  }
-
-  .status-msg {
-    margin-top: 10px;
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 13px;
-    min-height: 18px;
-  }
-
-  .status-msg.error { color: var(--rose-shadow); }
-  .status-msg.ok    { color: var(--leaf-deep); }
 
   /* Featured song link */
   .featured-row {
@@ -1454,87 +1133,6 @@
         </button>
       </div>
 
-      <div class="upload-area">
-        <div class="upload-tabs" role="tablist">
-          <button class="upload-tab active" data-tab="device" type="button">From device</button>
-          <button class="upload-tab" data-tab="link" type="button">From a link</button>
-        </div>
-
-        <!-- Tab: device -->
-        <div class="upload-panel active" id="panel-device">
-          <label class="upload-btn" for="audioUpload">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg>
-            <span id="uploadBtnLabel">Choose a song</span>
-          </label>
-          <input type="file" id="audioUpload" accept="audio/*" />
-          <div class="drop-zone" id="dropZone">
-            or drop an MP3 / M4A / WAV here
-          </div>
-          <p class="upload-hint" id="uploadHint">
-            Plays in your browser only. To let others hear it, use “From a link”.
-          </p>
-        </div>
-
-        <!-- Tab: link -->
-        <div class="upload-panel" id="panel-link">
-          <div class="link-input-row">
-            <input class="link-input" id="linkInput" type="url"
-              placeholder="Paste a Google Drive, Dropbox, or direct MP3 link…" />
-            <button class="link-load-btn" id="linkLoadBtn" type="button">Load</button>
-          </div>
-          <input class="title-input" id="titleInput" type="text"
-            placeholder="Give the song a gentle title (optional)" />
-          <p class="upload-hint">
-            Tip — for Google Drive, set the file to <em>“Anyone with the link can view”</em> and paste the share link.
-          </p>
-        </div>
-
-        <p class="status-msg" id="statusMsg"></p>
-
-        <!-- Publish / share -->
-        <div class="publish-row">
-          <button class="publish-btn" id="publishBtn" type="button" disabled>
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
-            <span>Publish &amp; copy link</span>
-          </button>
-          <div class="share-result" id="shareResult">
-            <span class="share-result-label">Shareable link</span>
-            <span id="shareUrl"></span><br/>
-            <button class="copy-btn" id="copyShareBtn" type="button">Copy link</button>
-          </div>
-        </div>
-
-        <button class="help-toggle" id="helpToggle" type="button">How publishing &amp; storage works</button>
-        <div class="help-panel" id="helpPanel">
-          <h4>What “publish” means here</h4>
-          <p>This page is just a static HTML file — it has no server of its own. For someone else to hear your song through the link, the audio file has to live somewhere public on the internet. You then point this page at it.</p>
-
-          <h4>Easiest — Google Drive</h4>
-          <ol>
-            <li>Upload the song to Google Drive.</li>
-            <li>Right-click → <em>Share</em> → set <strong>“Anyone with the link”</strong> → <em>Viewer</em>.</li>
-            <li>Copy the share link and paste it into <em>“From a link”</em> above. The page converts it to a direct stream automatically.</li>
-            <li>Press <strong>Publish &amp; copy link</strong> — share the resulting URL. When she opens it, the song is already there.</li>
-          </ol>
-          <p><em>Drive note:</em> Drive can throttle very popular files. Fine for personal sharing, less ideal for large audiences.</p>
-
-          <h4>Other places that work</h4>
-          <ul>
-            <li><strong>Dropbox</strong> — share link, the page auto-rewrites it to a playable URL.</li>
-            <li><strong>GitHub repo</strong> — drop the MP3 next to <code>index.html</code> and commit. Then paste its raw URL, or just name it <code>song.mp3</code> and it auto-loads.</li>
-            <li><strong>Catbox / 0x0.st / file.io</strong> — drag-and-drop hosts; copy the URL they give you.</li>
-            <li><strong>Supabase / Firebase Storage</strong> — best for many songs (free 1 GB tier).</li>
-          </ul>
-
-          <h4>Storage tips</h4>
-          <ul>
-            <li>Keep MP3s under ~10 MB when you can — encode at 128–192 kbps.</li>
-            <li>Google Drive free tier is 15 GB shared with Gmail / Photos.</li>
-            <li>GitHub repos: files up to 100 MB, repo soft-limit 1 GB.</li>
-            <li>Your song choice is remembered in this browser, so you don’t have to re-paste it.</li>
-          </ul>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -1568,25 +1166,19 @@
     }
   })();
 
-  /* ============================================
-     🌸 PUBLISH YOUR SONG
-     ─────────────────────────────────────────────
-     To make the song play when she opens the link:
+  // The published song. Replace SONG_DRIVE_ID with another Drive file ID
+  // (or replace SONG_URL_CANDIDATES below entirely) to change the song.
+  const SONG_DRIVE_ID = '1TCClZERefwbdmNXx40wpjADJKo3GiGYQ';
+  const SONG_LABEL = 'a quiet song for you';
 
-     1. Place your audio file (MP3 / M4A / WAV) in
-        the SAME folder as this HTML file.
-     2. Set SONG_URL below to its filename
-        (e.g. 'song.mp3' or 'gentle-song.m4a').
-     3. Upload BOTH files to your host together
-        (Netlify Drop, Vercel, GitHub Pages, etc.)
-     4. Share the link — she just presses play.
-
-     Leave SONG_URL as null to disable auto-load
-     and rely only on the upload button.
-     ============================================ */
-  const DEFAULT_SONG_URL = 'https://drive.google.com/file/d/1TCClZERefwbdmNXx40wpjADJKo3GiGYQ/view?usp=sharing';
-  const DEFAULT_SONG_LABEL = 'a quiet song for you';
-  const STORAGE_KEY = 'flowers.song.v1';
+  // For Google Drive files, browsers reach the audio bytes more reliably
+  // through one of several URL forms — we try them in order until one plays.
+  const SONG_URL_CANDIDATES = SONG_DRIVE_ID ? [
+    'https://drive.google.com/uc?export=download&id=' + SONG_DRIVE_ID,
+    'https://drive.usercontent.google.com/download?id=' + SONG_DRIVE_ID + '&export=download&authuser=0',
+    'https://docs.google.com/uc?export=download&id=' + SONG_DRIVE_ID,
+    'song.mp3'   // last resort: a file sitting next to index.html
+  ] : ['song.mp3'];
 
   /* ============================================
      MUSIC PLAYER
@@ -1609,24 +1201,9 @@
   const durationEl = document.getElementById('duration');
   const progressBar = document.getElementById('progressBar');
   const progressFill = document.getElementById('progressFill');
-  const audioUpload = document.getElementById('audioUpload');
-  const uploadBtnLabel = document.getElementById('uploadBtnLabel');
-  const uploadHint = document.getElementById('uploadHint');
-  const dropZone = document.getElementById('dropZone');
-  const linkInput = document.getElementById('linkInput');
-  const linkLoadBtn = document.getElementById('linkLoadBtn');
-  const titleInput = document.getElementById('titleInput');
-  const statusMsg = document.getElementById('statusMsg');
-  const publishBtn = document.getElementById('publishBtn');
-  const shareResult = document.getElementById('shareResult');
-  const shareUrlEl = document.getElementById('shareUrl');
-  const copyShareBtn = document.getElementById('copyShareBtn');
-  const helpToggle = document.getElementById('helpToggle');
-  const helpPanel = document.getElementById('helpPanel');
 
   let songLoaded = false;
-  let currentPublicUrl = null;   // a public URL the song lives at (shareable)
-  let currentTitle = null;
+  let candidateIndex = 0;
 
   function fmtTime(s) {
     if (!isFinite(s) || s < 0) return '0:00';
@@ -1654,93 +1231,32 @@
       pauseIcon.style.display = 'none';
       trackStatus.textContent = songLoaded
         ? 'paused — take your time'
-        : 'ready when you are';
+        : 'gently waiting';
     }
   }
 
-  /* ---------- URL NORMALISATION (Google Drive / Dropbox → direct stream) ---------- */
-  function normaliseToDirectUrl(raw) {
-    if (!raw) return raw;
-    let url = raw.trim();
-
-    // Google Drive: https://drive.google.com/file/d/FILE_ID/view?usp=sharing
-    let m = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
-    if (m) return 'https://drive.google.com/uc?export=download&id=' + m[1];
-    // Google Drive: https://drive.google.com/open?id=FILE_ID
-    m = url.match(/drive\.google\.com\/open\?id=([a-zA-Z0-9_-]+)/);
-    if (m) return 'https://drive.google.com/uc?export=download&id=' + m[1];
-
-    // Dropbox: ...?dl=0  →  ?raw=1
-    if (/dropbox\.com\//.test(url)) {
-      url = url.replace(/[?&]dl=0/, '').replace(/[?&]dl=1/, '');
-      url += (url.indexOf('?') > -1 ? '&' : '?') + 'raw=1';
-      return url;
+  function tryCandidate(idx) {
+    if (idx >= SONG_URL_CANDIDATES.length) {
+      trackInfo.textContent = SONG_LABEL;
+      trackStatus.textContent = 'song unavailable — please try again later';
+      return;
     }
-
-    // GitHub blob → raw
-    m = url.match(/^https?:\/\/github\.com\/([^/]+)\/([^/]+)\/blob\/(.+)$/);
-    if (m) return 'https://raw.githubusercontent.com/' + m[1] + '/' + m[2] + '/' + m[3];
-
-    return url;
-  }
-
-  function prettyTitleFromUrl(url) {
-    try {
-      const u = new URL(url, location.href);
-      const last = u.pathname.split('/').filter(Boolean).pop() || 'a quiet song';
-      return decodeURIComponent(last).replace(/\.[^/.]+$/, '').replace(/[_-]/g, ' ');
-    } catch (e) {
-      return 'a quiet song';
-    }
-  }
-
-  function setStatus(msg, kind) {
-    statusMsg.textContent = msg || '';
-    statusMsg.className = 'status-msg' + (kind ? ' ' + kind : '');
-  }
-
-  function loadFromUrl(rawUrl, title, opts) {
-    opts = opts || {};
-    const url = normaliseToDirectUrl(rawUrl);
-    if (!url) return;
+    candidateIndex = idx;
     songLoaded = false;
-    audio.src = url;
+    audio.src = SONG_URL_CANDIDATES[idx];
     audio.load();
-    currentPublicUrl = url;
-    currentTitle = title || prettyTitleFromUrl(rawUrl);
-    trackInfo.textContent = currentTitle;
-    trackStatus.textContent = 'loading…';
-    clearProgress();
-    publishBtn.disabled = false;
-    shareResult.classList.remove('visible');
-    if (!opts.silent) setStatus('loading the song…', '');
-    // Persist for this browser
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({ url: rawUrl, title: currentTitle }));
-    } catch (e) {}
   }
 
-  /* ---------- AUDIO EVENT LISTENERS ---------- */
   audio.addEventListener('loadedmetadata', () => {
     songLoaded = true;
     durationEl.textContent = fmtTime(audio.duration);
-    if (currentPublicUrl) {
-      trackStatus.textContent = 'press play whenever you’re ready';
-      uploadBtnLabel.textContent = 'Use a different song';
-      setStatus('song ready ✿', 'ok');
-    }
+    trackInfo.textContent = SONG_LABEL;
+    trackStatus.textContent = 'press play whenever you’re ready';
   });
 
   audio.addEventListener('error', () => {
-    if (currentPublicUrl) {
-      setStatus(
-        'couldn’t load that link — make sure it’s a public direct URL (Drive: “Anyone with link”).',
-        'error'
-      );
-      audio.removeAttribute('src');
-      currentPublicUrl = null;
-      publishBtn.disabled = true;
-    }
+    // Move on to the next URL form quietly.
+    tryCandidate(candidateIndex + 1);
   });
 
   audio.addEventListener('play', () => setPlayingUI(true));
@@ -1760,12 +1276,18 @@
 
   /* ---------- CONTROLS ---------- */
   playBtn.addEventListener('click', () => {
-    if (!audio.src) {
-      audioUpload.click();
-      return;
+    if (!audio.src) return;
+    if (audio.paused) {
+      const p = audio.play();
+      if (p && p.catch) {
+        p.catch(() => {
+          // Autoplay or load error — try the next URL form.
+          tryCandidate(candidateIndex + 1);
+        });
+      }
+    } else {
+      audio.pause();
     }
-    if (audio.paused) audio.play();
-    else audio.pause();
   });
 
   restartBtn.addEventListener('click', () => {
@@ -1792,170 +1314,10 @@
     audio.currentTime = pct * audio.duration;
   });
 
-  /* ---------- DEVICE UPLOAD (local-only playback) ---------- */
-  function loadLocalFile(file) {
-    if (!file) return;
-    if (!/^audio\//.test(file.type)) {
-      setStatus('that file doesn’t look like audio.', 'error');
-      return;
-    }
-    const url = URL.createObjectURL(file);
-    audio.src = url;
-    audio.load();
-    const name = file.name.replace(/\.[^/.]+$/, '').replace(/[_-]/g, ' ');
-    trackInfo.textContent = name;
-    trackStatus.textContent = 'ready — tap play when you’re ready';
-    clearProgress();
-    // Local files can’t be shared — disable publishing.
-    currentPublicUrl = null;
-    publishBtn.disabled = true;
-    shareResult.classList.remove('visible');
-    setStatus('loaded on your device — only you can hear this one. Use “From a link” to share.', '');
-  }
-
-  audioUpload.addEventListener('change', (e) => loadLocalFile(e.target.files[0]));
-
-  /* drag & drop */
-  ['dragenter', 'dragover'].forEach(ev => {
-    dropZone.addEventListener(ev, (e) => {
-      e.preventDefault();
-      dropZone.classList.add('dragging');
-    });
-  });
-  ['dragleave', 'drop'].forEach(ev => {
-    dropZone.addEventListener(ev, (e) => {
-      e.preventDefault();
-      dropZone.classList.remove('dragging');
-    });
-  });
-  dropZone.addEventListener('drop', (e) => {
-    const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
-    if (f) loadLocalFile(f);
-  });
-
-  /* ---------- LINK LOAD ---------- */
-  function handleLinkLoad() {
-    const raw = linkInput.value.trim();
-    if (!raw) {
-      setStatus('paste a link first.', 'error');
-      return;
-    }
-    if (!/^https?:\/\//.test(raw)) {
-      setStatus('the link should start with http:// or https://', 'error');
-      return;
-    }
-    loadFromUrl(raw, titleInput.value.trim() || null);
-  }
-  linkLoadBtn.addEventListener('click', handleLinkLoad);
-  linkInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleLinkLoad(); });
-  titleInput.addEventListener('input', () => {
-    if (currentPublicUrl) {
-      currentTitle = titleInput.value.trim() || prettyTitleFromUrl(currentPublicUrl);
-      trackInfo.textContent = currentTitle;
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify({ url: linkInput.value.trim(), title: currentTitle }));
-      } catch (e) {}
-    }
-  });
-
-  /* ---------- TABS ---------- */
-  document.querySelectorAll('.upload-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      const name = tab.dataset.tab;
-      document.querySelectorAll('.upload-tab').forEach(t => t.classList.toggle('active', t === tab));
-      document.querySelectorAll('.upload-panel').forEach(p => {
-        p.classList.toggle('active', p.id === 'panel-' + name);
-      });
-      setStatus('');
-    });
-  });
-
-  /* ---------- PUBLISH (generate shareable link) ---------- */
-  function buildShareUrl() {
-    if (!currentPublicUrl) return null;
-    const params = new URLSearchParams();
-    params.set('song', currentPublicUrl);
-    if (currentTitle) params.set('title', currentTitle);
-    const base = location.origin + location.pathname;
-    return base + '#' + params.toString();
-  }
-
-  publishBtn.addEventListener('click', () => {
-    const link = buildShareUrl();
-    if (!link) {
-      setStatus('load a public link first, then publish.', 'error');
-      return;
-    }
-    shareUrlEl.textContent = link;
-    shareResult.classList.add('visible');
-    // Try to write to clipboard
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(link)
-        .then(() => setStatus('link copied — share it with her ✿', 'ok'))
-        .catch(() => setStatus('link ready below — copy it manually.', ''));
-    } else {
-      setStatus('link ready below — copy it manually.', '');
-    }
-  });
-
-  copyShareBtn.addEventListener('click', () => {
-    const txt = shareUrlEl.textContent;
-    if (!txt) return;
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(txt).then(() => setStatus('copied ✿', 'ok'));
-    } else {
-      const r = document.createRange();
-      r.selectNode(shareUrlEl);
-      window.getSelection().removeAllRanges();
-      window.getSelection().addRange(r);
-      try { document.execCommand('copy'); setStatus('copied ✿', 'ok'); } catch(e){}
-    }
-  });
-
-  /* ---------- HELP ---------- */
-  helpToggle.addEventListener('click', () => {
-    helpPanel.classList.toggle('visible');
-  });
-
-  /* ---------- KICK OFF: priority — URL hash → localStorage → default song.mp3 ---------- */
-  function readHashParams() {
-    if (!location.hash || location.hash.length < 2) return null;
-    const params = new URLSearchParams(location.hash.slice(1));
-    const song = params.get('song');
-    if (!song) return null;
-    return { url: song, title: params.get('title') };
-  }
-
-  function autoLoadInitialSong() {
-    // 1. Shared link via hash takes precedence (the recipient flow)
-    const hashed = readHashParams();
-    if (hashed) {
-      // switch to the link tab so the values are visible / editable
-      document.querySelector('.upload-tab[data-tab="link"]').click();
-      linkInput.value = hashed.url;
-      titleInput.value = hashed.title || '';
-      loadFromUrl(hashed.url, hashed.title, { silent: true });
-      return;
-    }
-    // 2. Previously saved choice in this browser
-    try {
-      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
-      if (saved && saved.url) {
-        linkInput.value = saved.url;
-        titleInput.value = saved.title || '';
-        loadFromUrl(saved.url, saved.title, { silent: true });
-        return;
-      }
-    } catch (e) {}
-    // 3. Fall back to the published default song (Google Drive link).
-    if (DEFAULT_SONG_URL) {
-      linkInput.value = DEFAULT_SONG_URL;
-      titleInput.value = DEFAULT_SONG_LABEL;
-      loadFromUrl(DEFAULT_SONG_URL, DEFAULT_SONG_LABEL, { silent: true });
-    }
-  }
-
-  autoLoadInitialSong();
+  /* ---------- KICK OFF ---------- */
+  trackInfo.textContent = SONG_LABEL;
+  trackStatus.textContent = 'loading…';
+  tryCandidate(0);
 </script>
 
 </body>
