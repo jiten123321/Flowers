@@ -1584,7 +1584,7 @@
      Leave SONG_URL as null to disable auto-load
      and rely only on the upload button.
      ============================================ */
-  const DEFAULT_SONG_URL = 'song.mp3';
+  const DEFAULT_SONG_URL = 'https://drive.google.com/file/d/1TCClZERefwbdmNXx40wpjADJKo3GiGYQ/view?usp=sharing';
   const DEFAULT_SONG_LABEL = 'a quiet song for you';
   const STORAGE_KEY = 'flowers.song.v1';
 
@@ -1947,18 +1947,11 @@
         return;
       }
     } catch (e) {}
-    // 3. Fall back to the local song.mp3 if it exists in the same folder
+    // 3. Fall back to the published default song (Google Drive link).
     if (DEFAULT_SONG_URL) {
-      audio.src = DEFAULT_SONG_URL;
-      audio.load();
-      audio.addEventListener('loadedmetadata', function onceMeta() {
-        if (!currentPublicUrl && trackInfo.textContent.indexOf('—') > -1) {
-          trackInfo.textContent = DEFAULT_SONG_LABEL;
-          trackStatus.textContent = 'press play whenever you’re ready';
-          uploadBtnLabel.textContent = 'Use a different song';
-        }
-        audio.removeEventListener('loadedmetadata', onceMeta);
-      });
+      linkInput.value = DEFAULT_SONG_URL;
+      titleInput.value = DEFAULT_SONG_LABEL;
+      loadFromUrl(DEFAULT_SONG_URL, DEFAULT_SONG_LABEL, { silent: true });
     }
   }
 
