@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<meta name="theme-color" content="#FBF4EC"/>
 <title>For You — A Quiet Garden</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +50,12 @@
     font-weight: 400;
     min-height: 100vh;
     position: relative;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
   }
+
+  img, svg { max-width: 100%; height: auto; }
+  button { font-family: inherit; -webkit-appearance: none; }
 
   /* ============================================
      AMBIENT MORNING GLOW
@@ -114,6 +120,34 @@
     height: 22px;
     border-radius: 80% 50% 80% 50% / 70% 80% 60% 50%;
     opacity: 0.7;
+  }
+
+  .heart {
+    position: absolute;
+    top: -40px;
+    width: 18px;
+    height: 16px;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23E2A8A4' d='M12 21s-7-4.35-7-10a4 4 0 0 1 7-2.65A4 4 0 0 1 19 11c0 5.65-7 10-7 10z'/></svg>") no-repeat center / contain;
+    filter: drop-shadow(0 2px 4px rgba(201, 127, 124, 0.25));
+    opacity: 0.85;
+    animation: petalFall linear infinite;
+    will-change: transform;
+  }
+
+  .sparkle {
+    position: absolute;
+    top: -40px;
+    width: 14px;
+    height: 14px;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23E7D2A8' d='M12 2 13.6 9 21 10.6 14.4 14 16 22 12 17.6 8 22 9.6 14 3 10.6 10.4 9z'/></svg>") no-repeat center / contain;
+    opacity: 0.9;
+    animation: petalFall linear infinite, sparkleTwinkle 1.6s ease-in-out infinite;
+    will-change: transform, opacity;
+  }
+
+  @keyframes sparkleTwinkle {
+    0%, 100% { filter: brightness(1) drop-shadow(0 0 4px rgba(231, 210, 168, 0.5)); }
+    50%      { filter: brightness(1.4) drop-shadow(0 0 10px rgba(255, 232, 200, 0.95)); }
   }
 
   @keyframes petalFall {
@@ -649,50 +683,6 @@
     height: 20px;
   }
 
-  /* Upload button */
-  .upload-area {
-    margin-top: 36px;
-    padding-top: 28px;
-    border-top: 1px solid rgba(201, 168, 118, 0.2);
-  }
-
-  .upload-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 28px;
-    background: transparent;
-    border: 1px solid var(--gold);
-    color: var(--gold-deep);
-    font-family: 'Marcellus', serif;
-    font-size: 12px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.4s ease;
-    border-radius: 2px;
-  }
-
-  .upload-btn:hover {
-    background: var(--gold);
-    color: var(--cream);
-    letter-spacing: 0.4em;
-  }
-
-  .upload-btn svg {
-    width: 14px;
-    height: 14px;
-  }
-
-  .upload-hint {
-    margin-top: 14px;
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 14px;
-    color: var(--ink-soft);
-  }
-
-  input[type="file"] { display: none; }
 
   /* Featured song link */
   .featured-row {
@@ -802,16 +792,414 @@
   }
 
   /* ============================================
+     WELCOME OVERLAY
+     ============================================ */
+  body.locked { overflow: hidden; }
+
+  .welcome-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 28px;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255, 232, 200, 0.75), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 50% 100%, rgba(248, 220, 218, 0.7), transparent 65%),
+      linear-gradient(165deg, var(--cream) 0%, var(--blush-soft) 100%);
+    transition: opacity 1.4s ease, visibility 0s linear 1.4s;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .welcome-overlay.dismissed {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1.4s ease, visibility 0s linear 1.4s;
+  }
+
+  .welcome-card {
+    max-width: 520px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    animation: welcomeRise 1.6s ease-out 0.2s both;
+  }
+
+  @keyframes welcomeRise {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .welcome-mark {
+    font-family: 'Italianno', cursive;
+    font-size: clamp(54px, 8vw, 84px);
+    color: var(--rose-deep);
+    line-height: 1;
+  }
+
+  .welcome-eyebrow {
+    font-family: 'Marcellus', serif;
+    font-size: 12px;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+  }
+
+  .welcome-eyebrow::before,
+  .welcome-eyebrow::after {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: var(--gold);
+    vertical-align: middle;
+    margin: 0 14px;
+  }
+
+  .welcome-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(42px, 7vw, 72px);
+    line-height: 1;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  .welcome-title em {
+    font-family: 'Italianno', cursive;
+    font-style: normal;
+    font-weight: 400;
+    color: var(--rose-deep);
+    font-size: 1.2em;
+    line-height: 0.8;
+    display: inline-block;
+    transform: translateY(0.05em);
+  }
+
+  .welcome-body {
+    font-family: 'Caveat', cursive;
+    font-weight: 500;
+    font-size: clamp(20px, 2.4vw, 26px);
+    color: var(--ink-soft);
+    line-height: 1.4;
+    max-width: 440px;
+  }
+
+  .welcome-enter {
+    margin-top: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 36px;
+    background: linear-gradient(155deg, var(--rose), var(--rose-deep));
+    color: white;
+    border: none;
+    border-radius: 2px;
+    font-family: 'Marcellus', serif;
+    font-size: 12px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 14px 32px rgba(201, 127, 124, 0.35);
+  }
+
+  .welcome-enter:hover {
+    transform: translateY(-2px);
+    letter-spacing: 0.42em;
+    box-shadow: 0 18px 40px rgba(201, 127, 124, 0.5);
+  }
+
+  .welcome-enter::after {
+    content: '✿';
+    font-size: 14px;
+    line-height: 1;
+  }
+
+  .welcome-hint {
+    margin-top: 4px;
+    font-family: 'Italianno', cursive;
+    font-size: 22px;
+    color: var(--gold-deep);
+    opacity: 0.8;
+  }
+
+  /* ============================================
+     ULTRA-CUTE TOUCHES
+     ============================================ */
+  .click-sparkle {
+    position: fixed;
+    width: 14px;
+    height: 14px;
+    pointer-events: none;
+    z-index: 200;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23F2C2BC' d='M12 2 13.6 9 21 10.6 14.4 14 16 22 12 17.6 8 22 9.6 14 3 10.6 10.4 9z'/></svg>") no-repeat center / contain;
+    transform: translate(-50%, -50%) scale(0.4);
+    animation: clickSparkle 0.85s ease-out forwards;
+    filter: drop-shadow(0 0 6px rgba(248, 213, 208, 0.9));
+  }
+
+  @keyframes clickSparkle {
+    0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.3) rotate(0deg); }
+    20%  { opacity: 1; transform: translate(calc(-50% + var(--dx) * 0.4), calc(-50% + var(--dy) * 0.4 - 4px)) scale(1.1) rotate(120deg); }
+    100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy) - 18px)) scale(0.4) rotate(360deg); }
+  }
+
+  .heart-burst {
+    position: fixed;
+    pointer-events: none;
+    z-index: 200;
+    font-family: 'Italianno', cursive;
+    font-size: 28px;
+    line-height: 1;
+    color: var(--rose-deep);
+    text-shadow: 0 2px 6px rgba(201, 127, 124, 0.35);
+    transform: translate(-50%, -50%) scale(0.3);
+    animation: heartBurst 1.3s ease-out forwards;
+  }
+
+  @keyframes heartBurst {
+    0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+    18%  { opacity: 1; transform: translate(-50%, -50%) scale(1.3); }
+    100% { opacity: 0; transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0.8); }
+  }
+
+  /* gentle "breathing" on the welcome mark */
+  .welcome-mark {
+    animation:
+      welcomeRise 1.6s ease-out 0.2s both,
+      breathe 3.6s ease-in-out 2s infinite;
+  }
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.08); }
+  }
+
+  /* the recipient's name flutters every few seconds */
+  .welcome-title em {
+    animation: flutter 6s ease-in-out 2.5s infinite;
+    transform-origin: 50% 90%;
+  }
+  @keyframes flutter {
+    0%, 88%, 100% { transform: translateY(0.05em) rotate(0); }
+    91%           { transform: translateY(0.05em) rotate(-4deg); }
+    94%           { transform: translateY(0.05em) rotate(4deg); }
+    97%           { transform: translateY(0.05em) rotate(-2deg); }
+  }
+
+  /* play button pulses ever so faintly to invite a tap */
+  .play-btn::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 1px solid rgba(231, 168, 164, 0.5);
+    opacity: 0;
+    animation: playPulse 2.6s ease-out infinite;
+    pointer-events: none;
+  }
+  .play-btn { position: relative; }
+  @keyframes playPulse {
+    0%   { opacity: 0.7; transform: scale(0.92); }
+    100% { opacity: 0;   transform: scale(1.4); }
+  }
+
+  /* tiny ribbon ♡ Isha badge in the corner */
+  .for-isha {
+    position: fixed;
+    right: 14px;
+    bottom: 14px;
+    z-index: 10;
+    padding: 6px 14px;
+    background: linear-gradient(155deg, rgba(255, 250, 244, 0.85), rgba(248, 227, 222, 0.85));
+    border: 1px solid rgba(201, 168, 118, 0.4);
+    border-radius: 999px;
+    font-family: 'Italianno', cursive;
+    font-size: 18px;
+    color: var(--rose-deep);
+    box-shadow: 0 6px 18px rgba(201, 127, 124, 0.18);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    pointer-events: none;
+    animation: floatGently 4.5s ease-in-out infinite;
+  }
+  .for-isha .heart-glyph {
+    color: var(--rose-deep);
+    display: inline-block;
+    animation: heartbeat 1.5s ease-in-out infinite;
+    margin-right: 4px;
+  }
+  @keyframes floatGently {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-4px); }
+  }
+  @keyframes heartbeat {
+    0%, 40%, 100% { transform: scale(1); }
+    20%           { transform: scale(1.25); }
+    30%           { transform: scale(1.05); }
+  }
+
+  /* floating "scroll for more" pill */
+  .scroll-hint {
+    position: fixed;
+    left: 50%;
+    bottom: 26px;
+    z-index: 12;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 22px 8px;
+    background: linear-gradient(155deg, rgba(255, 250, 244, 0.9), rgba(248, 227, 222, 0.9));
+    border: 1px solid rgba(201, 168, 118, 0.45);
+    border-radius: 999px;
+    color: var(--rose-deep);
+    font-family: 'Italianno', cursive;
+    font-size: 22px;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 10px 26px rgba(201, 127, 124, 0.22);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, 16px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .scroll-hint.visible {
+    opacity: 1;
+    pointer-events: auto;
+    animation: scrollBob 2.6s ease-in-out infinite;
+  }
+
+  .scroll-hint:hover {
+    color: var(--rose-shadow);
+    border-color: var(--gold);
+  }
+
+  .scroll-hint .chevron {
+    width: 16px;
+    height: 16px;
+    display: block;
+    animation: chevronBounce 1.8s ease-in-out infinite;
+  }
+
+  @keyframes scrollBob {
+    0%, 100% { transform: translate(-50%, 0); }
+    50%      { transform: translate(-50%, -6px); }
+  }
+
+  @keyframes chevronBounce {
+    0%, 100% { transform: translateY(-1px); opacity: 0.7; }
+    50%      { transform: translateY(4px);  opacity: 1; }
+  }
+
+  /* ============================================
      RESPONSIVE
      ============================================ */
   @media (max-width: 720px) {
-    .message-card { padding: 60px 32px 50px; }
-    .player { padding: 44px 28px 32px; }
-    .vinyl-stage { width: 180px; height: 180px; }
-    .vinyl-label { width: 64px; height: 64px; }
-    .hero { padding: 60px 20px 40px; }
-    .ornament { margin: 70px 0 50px; }
-    .hero-sub::before, .hero-sub::after { width: 24px; margin: 0 10px; }
+    .stage { padding: 0 18px; }
+    .hero { padding: 56px 16px 36px; }
+    .hero-sub { margin-bottom: 44px; letter-spacing: 0.3em; }
+    .hero-sub::before, .hero-sub::after { width: 22px; margin: 0 10px; }
+
+    .ornament { margin: 60px 0 40px; gap: 12px; }
+    .ornament .line { width: clamp(48px, 18vw, 110px); }
+
+    .message-section { padding: 30px 16px 70px; }
+    .message-card { padding: 52px 26px 44px; }
+    .message-card::before,
+    .message-card::after { width: 22px; height: 22px; }
+
+    .music-section { padding: 24px 16px 80px; }
+    .music-eyebrow { margin-bottom: 40px; }
+
+    .player {
+      padding: 40px 22px 30px;
+      border-radius: 20px;
+      max-width: 100%;
+    }
+
+    .vinyl-stage { width: 170px; height: 170px; margin-bottom: 28px; }
+    .vinyl-label { width: 60px; height: 60px; }
+
+    .waveform { height: 30px; gap: 3px; margin: 12px 0 22px; }
+    .track-info { font-size: 16px; }
+
+    .progress-row { gap: 10px; font-size: 10px; letter-spacing: 0.15em; margin-bottom: 24px; }
+    .controls { gap: 22px; }
+    .ctrl-btn { width: 46px; height: 46px; }
+    .play-btn { width: 64px; height: 64px; }
+
+    .footer-note { padding: 30px 20px 70px; }
+
+    .welcome-overlay { padding: 32px 22px; padding-bottom: max(32px, env(safe-area-inset-bottom)); }
+    .welcome-card { gap: 18px; }
+    .welcome-mark { font-size: clamp(48px, 14vw, 72px); }
+    .welcome-eyebrow { font-size: 11px; letter-spacing: 0.38em; }
+    .welcome-eyebrow::before, .welcome-eyebrow::after { width: 18px; margin: 0 10px; }
+    .welcome-body { font-size: clamp(19px, 4.6vw, 24px); }
+    .welcome-enter { padding: 13px 30px; font-size: 11px; letter-spacing: 0.3em; }
+
+    .for-isha { top: 12px; right: 12px; bottom: auto; font-size: 16px; padding: 5px 12px; }
+
+    .scroll-hint { bottom: 18px; font-size: 19px; padding: 8px 18px 6px; }
+    .scroll-hint .chevron { width: 14px; height: 14px; }
+  }
+
+  @media (max-width: 420px) {
+    .stage { padding: 0 14px; }
+    .hero { padding: 44px 12px 28px; }
+    .hero-title { line-height: 1; }
+    .bouquet-count { margin-top: 22px; font-size: clamp(20px, 5.5vw, 26px); padding: 0 8px; }
+
+    .ornament { margin: 44px 0 32px; }
+    .ornament .line { width: clamp(36px, 14vw, 80px); }
+    .ornament .leaf { font-size: 28px; }
+
+    .message-section { padding: 24px 12px 60px; }
+    .message-card { padding: 44px 20px 38px; }
+    .message-eyebrow { font-size: 11px; letter-spacing: 0.35em; margin-bottom: 22px; }
+
+    .music-section { padding: 18px 12px 70px; }
+    .music-eyebrow { margin-bottom: 32px; }
+
+    .player { padding: 32px 18px 26px; border-radius: 18px; }
+    .vinyl-stage { width: 150px; height: 150px; margin-bottom: 22px; }
+    .vinyl-label { width: 54px; height: 54px; }
+    .waveform { height: 26px; margin: 10px 0 18px; }
+    .track-info { font-size: 15px; }
+    .track-status { font-size: 10px; letter-spacing: 0.28em; margin-bottom: 22px; }
+
+    .progress-row { gap: 8px; font-size: 9px; letter-spacing: 0.12em; }
+    .controls { gap: 18px; }
+    .ctrl-btn { width: 42px; height: 42px; }
+    .ctrl-btn svg { width: 14px; height: 14px; }
+    .play-btn { width: 60px; height: 60px; }
+    .play-btn svg { width: 18px; height: 18px; }
+
+    .footer-note { padding: 20px 16px 56px; }
+    .footer-note .signature::before,
+    .footer-note .signature::after { margin: 0 8px; }
+
+    .welcome-overlay { padding: 24px 16px; padding-bottom: max(24px, env(safe-area-inset-bottom)); }
+    .welcome-card { gap: 14px; }
+    .welcome-mark { font-size: clamp(42px, 13vw, 60px); }
+    .welcome-title { font-size: clamp(34px, 10.5vw, 50px); }
+    .welcome-body { font-size: clamp(17px, 4.4vw, 21px); }
+    .welcome-enter { padding: 12px 24px; font-size: 10px; letter-spacing: 0.26em; }
+    .welcome-hint { font-size: 19px; }
+  }
+
+  /* Trim petal animation cost on small screens */
+  @media (max-width: 420px) {
+    .petals-layer .petal:nth-child(n+13) { display: none; }
   }
 
   /* Reduced motion */
@@ -824,7 +1212,22 @@
   }
 </style>
 </head>
-<body>
+<body class="locked">
+
+  <!-- Welcome overlay -->
+  <div class="welcome-overlay" id="welcomeOverlay" role="dialog" aria-labelledby="welcomeTitle">
+    <div class="welcome-card">
+      <div class="welcome-mark">✿</div>
+      <p class="welcome-eyebrow">For you</p>
+      <h1 class="welcome-title" id="welcomeTitle">Hello, <em>Isha</em></h1>
+      <p class="welcome-body">
+        A little garden has been quietly waiting just for you.<br/>
+        Take a slow breath — and step inside whenever you’re ready.
+      </p>
+      <button class="welcome-enter" id="welcomeEnter" type="button">Open the garden</button>
+      <p class="welcome-hint">with all the softness in the world</p>
+    </div>
+  </div>
 
   <!-- Ambient soft glow -->
   <div class="ambient-glow"></div>
@@ -835,7 +1238,7 @@
   <!-- HERO -->
   <section class="hero">
     <div class="stage">
-      <p class="opening-tag">Something gentle, just for you</p>
+      <p class="opening-tag">Something gentle, just for you ♡</p>
       <h1 class="hero-title">A quiet <em>garden</em><br/>before the morning</h1>
       <p class="hero-sub">A handful of softness</p>
 
@@ -1093,7 +1496,7 @@
           </g>
         </svg>
 
-        <p class="bouquet-count"><span>one hundred</span> soft pink roses, gathered with white lilies</p>
+        <p class="bouquet-count"><span>one hundred</span> soft pink roses, gathered with white lilies — just for you ♡</p>
       </div>
     </div>
   </section>
@@ -1177,22 +1580,23 @@
         </button>
       </div>
 
-      <div class="upload-area">
-        <label class="upload-btn" for="audioUpload">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg>
-          <span id="uploadBtnLabel">Upload a song</span>
-        </label>
-        <input type="file" id="audioUpload" accept="audio/*" />
-        <p class="upload-hint" id="uploadHint">Choose an MP3 or audio file from your device</p>
-      </div>
     </div>
   </section>
 
   <!-- Footer -->
   <div class="footer-note">
     <p>The morning is on its way.<br/>Be gentle with yourself today.</p>
-    <p class="signature">with quiet care</p>
+    <p class="signature">with quiet care for Isha</p>
   </div>
+
+  <!-- Little ribbon -->
+  <div class="for-isha" aria-hidden="true"><span class="heart-glyph">♡</span> for Isha</div>
+
+  <!-- Floating scroll hint -->
+  <button class="scroll-hint" id="scrollHint" type="button" aria-label="Scroll for more">
+    <span>scroll for more ♡</span>
+    <svg class="chevron" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+  </button>
 
 <script>
   /* ============================================
@@ -1200,42 +1604,154 @@
      ============================================ */
   (function initPetals() {
     const layer = document.getElementById('petalsLayer');
-    const PETAL_COUNT = 24;
-    for (let i = 0; i < PETAL_COUNT; i++) {
-      const p = document.createElement('div');
-      const isLily = Math.random() > 0.7;
-      p.className = 'petal' + (isLily ? ' lily' : '');
+    const PETAL_COUNT = 28;
+
+    function spawn(kind) {
+      const el = document.createElement('div');
+      el.className = kind;
       const duration = 14 + Math.random() * 16;   // 14–30s
       const delay = -Math.random() * duration;
-      const scale = 0.6 + Math.random() * 1.1;
-      const left = Math.random() * 100;
-      p.style.left = left + 'vw';
-      p.style.animationDuration = duration + 's';
-      p.style.animationDelay = delay + 's';
-      p.style.transform = `scale(${scale})`;
-      p.style.opacity = (0.4 + Math.random() * 0.5).toFixed(2);
-      layer.appendChild(p);
+      const scale = 0.55 + Math.random() * 1.05;
+      el.style.left = (Math.random() * 100) + 'vw';
+      el.style.animationDuration = duration + 's';
+      el.style.animationDelay = delay + 's';
+      el.style.transform = `scale(${scale})`;
+      el.style.opacity = (0.45 + Math.random() * 0.5).toFixed(2);
+      layer.appendChild(el);
+    }
+
+    for (let i = 0; i < PETAL_COUNT; i++) {
+      const r = Math.random();
+      if (r < 0.55) spawn('petal');
+      else if (r < 0.7) spawn('petal lily');
+      else if (r < 0.9) spawn('heart');
+      else              spawn('sparkle');
     }
   })();
 
   /* ============================================
-     🌸 PUBLISH YOUR SONG
-     ─────────────────────────────────────────────
-     To make the song play when she opens the link:
-
-     1. Place your audio file (MP3 / M4A / WAV) in
-        the SAME folder as this HTML file.
-     2. Set SONG_URL below to its filename
-        (e.g. 'song.mp3' or 'gentle-song.m4a').
-     3. Upload BOTH files to your host together
-        (Netlify Drop, Vercel, GitHub Pages, etc.)
-     4. Share the link — she just presses play.
-
-     Leave SONG_URL as null to disable auto-load
-     and rely only on the upload button.
+     CLICK SPARKLES — a tiny burst follows every tap
      ============================================ */
-  const SONG_URL = 'song.mp3';
-  const SONG_LABEL = 'a quiet song for you';
+  (function initClickSparkles() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    document.addEventListener('pointerdown', (e) => {
+      const count = 4;
+      for (let i = 0; i < count; i++) {
+        const s = document.createElement('span');
+        s.className = 'click-sparkle';
+        s.style.left = e.clientX + 'px';
+        s.style.top  = e.clientY + 'px';
+        s.style.setProperty('--dx', ((Math.random() - 0.5) * 70) + 'px');
+        s.style.setProperty('--dy', ((Math.random() - 0.5) * 50 - 14) + 'px');
+        document.body.appendChild(s);
+        setTimeout(() => s.remove(), 900);
+      }
+    }, { passive: true });
+  })();
+
+  /* ============================================
+     HEART BURST — fires from a point on the screen
+     ============================================ */
+  function heartBurstAt(cx, cy) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const N = 14;
+    const glyphs = ['♡', '♥', '✿'];
+    for (let i = 0; i < N; i++) {
+      const angle = (i / N) * Math.PI * 2 + Math.random() * 0.3;
+      const dist  = 90 + Math.random() * 80;
+      const h = document.createElement('span');
+      h.className = 'heart-burst';
+      h.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
+      h.style.left = cx + 'px';
+      h.style.top  = cy + 'px';
+      h.style.fontSize = (22 + Math.random() * 16) + 'px';
+      h.style.setProperty('--tx', (Math.cos(angle) * dist) + 'px');
+      h.style.setProperty('--ty', (Math.sin(angle) * dist - 30) + 'px');
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 1400);
+    }
+  }
+
+  /* ============================================
+     WELCOME OVERLAY DISMISS
+     ============================================ */
+  (function initWelcome() {
+    const overlay = document.getElementById('welcomeOverlay');
+    const enterBtn = document.getElementById('welcomeEnter');
+    if (!overlay || !enterBtn) return;
+    function dismiss(e) {
+      // Heart burst from the button (or centre of screen on keyboard dismiss).
+      const rect = enterBtn.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top  + rect.height / 2;
+      heartBurstAt(cx, cy);
+      // Give the hearts a moment before fading the overlay.
+      setTimeout(() => {
+        overlay.classList.add('dismissed');
+        document.body.classList.remove('locked');
+        window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+        setTimeout(() => overlay.remove(), 1500);
+      }, 250);
+    }
+    enterBtn.addEventListener('click', dismiss);
+    // Also dismiss on Enter / Space when the button has focus naturally,
+    // and on Escape as a quiet escape hatch.
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && document.body.classList.contains('locked')) dismiss();
+    });
+  })();
+
+  /* ============================================
+     SCROLL HINT
+     ============================================ */
+  (function initScrollHint() {
+    const hint = document.getElementById('scrollHint');
+    if (!hint) return;
+
+    let revealed = false;
+    function update() {
+      const showable = revealed && window.scrollY < 80;
+      hint.classList.toggle('visible', showable);
+    }
+
+    function reveal() {
+      revealed = true;
+      update();
+    }
+
+    // If the welcome overlay exists, wait for it to be dismissed.
+    const overlay = document.getElementById('welcomeOverlay');
+    if (overlay && document.body.classList.contains('locked')) {
+      const obs = new MutationObserver(() => {
+        if (overlay.classList.contains('dismissed')) {
+          obs.disconnect();
+          setTimeout(reveal, 1200);
+        }
+      });
+      obs.observe(overlay, { attributes: true, attributeFilter: ['class'] });
+    } else {
+      setTimeout(reveal, 1400);
+    }
+
+    window.addEventListener('scroll', update, { passive: true });
+
+    hint.addEventListener('click', () => {
+      const target = document.querySelector('.message-section')
+                  || document.querySelector('.ornament');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  })();
+
+  // The published song. Replace SONG_URL to change the song.
+  // GitHub raw is reliable for <audio> streaming.
+  const SONG_URL = 'https://raw.githubusercontent.com/jiten123321/song/main/Love%20You%20Zindagi%20Dear%20Zindagi%20128%20Kbps.mp3';
+  const SONG_LABEL = 'Love You Zindagi';
+
+  // Fallback chain — used in order if the primary URL fails.
+  const SONG_URL_CANDIDATES = [
+    SONG_URL,
+    'song.mp3'   // last resort: a file sitting next to index.html
+  ];
 
   /* ============================================
      MUSIC PLAYER
@@ -1258,11 +1774,9 @@
   const durationEl = document.getElementById('duration');
   const progressBar = document.getElementById('progressBar');
   const progressFill = document.getElementById('progressFill');
-  const audioUpload = document.getElementById('audioUpload');
-  const uploadBtnLabel = document.getElementById('uploadBtnLabel');
-  const uploadHint = document.getElementById('uploadHint');
 
   let songLoaded = false;
+  let candidateIndex = 0;
 
   function fmtTime(s) {
     if (!isFinite(s) || s < 0) return '0:00';
@@ -1290,36 +1804,32 @@
       pauseIcon.style.display = 'none';
       trackStatus.textContent = songLoaded
         ? 'paused — take your time'
-        : 'ready when you are';
+        : 'gently waiting';
     }
   }
 
-  /* ---------- TRY TO AUTO-LOAD THE HOSTED SONG ---------- */
-  function tryLoadHostedSong() {
-    if (!SONG_URL) return;
-    audio.src = SONG_URL;
-    // We'll know if it loaded via the 'loadedmetadata' or 'error' event below
+  function tryCandidate(idx) {
+    if (idx >= SONG_URL_CANDIDATES.length) {
+      trackInfo.textContent = SONG_LABEL;
+      trackStatus.textContent = 'song unavailable — please try again later';
+      return;
+    }
+    candidateIndex = idx;
+    songLoaded = false;
+    audio.src = SONG_URL_CANDIDATES[idx];
+    audio.load();
   }
 
-  /* ---------- AUDIO EVENT LISTENERS ---------- */
   audio.addEventListener('loadedmetadata', () => {
     songLoaded = true;
     durationEl.textContent = fmtTime(audio.duration);
-    // If this is the hosted song (no user upload yet), show the gentle label
-    if (audio.src && audio.src.indexOf(SONG_URL) > -1 && trackInfo.textContent.indexOf('—') > -1) {
-      trackInfo.textContent = SONG_LABEL;
-      trackStatus.textContent = 'press play whenever you’re ready';
-      uploadBtnLabel.textContent = 'Use a different song';
-      uploadHint.textContent = 'or upload one from your device';
-    }
+    trackInfo.textContent = SONG_LABEL;
+    trackStatus.textContent = 'press play whenever you’re ready';
   });
 
   audio.addEventListener('error', () => {
-    // Hosted song failed to load — leave the upload flow as the only option
-    if (!songLoaded && SONG_URL && audio.src.indexOf(SONG_URL) > -1) {
-      // Silent fall-through — recipient sees the upload button as normal
-      audio.removeAttribute('src');
-    }
+    // Move on to the next URL form quietly.
+    tryCandidate(candidateIndex + 1);
   });
 
   audio.addEventListener('play', () => setPlayingUI(true));
@@ -1339,12 +1849,18 @@
 
   /* ---------- CONTROLS ---------- */
   playBtn.addEventListener('click', () => {
-    if (!audio.src) {
-      audioUpload.click();
-      return;
+    if (!audio.src) return;
+    if (audio.paused) {
+      const p = audio.play();
+      if (p && p.catch) {
+        p.catch(() => {
+          // Autoplay or load error — try the next URL form.
+          tryCandidate(candidateIndex + 1);
+        });
+      }
+    } else {
+      audio.pause();
     }
-    if (audio.paused) audio.play();
-    else audio.pause();
   });
 
   restartBtn.addEventListener('click', () => {
@@ -1371,20 +1887,10 @@
     audio.currentTime = pct * audio.duration;
   });
 
-  /* ---------- UPLOAD (recipient or you, to swap song) ---------- */
-  audioUpload.addEventListener('change', (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const url = URL.createObjectURL(file);
-    audio.src = url;
-    const name = file.name.replace(/\.[^/.]+$/, '').replace(/[_-]/g, ' ');
-    trackInfo.textContent = name;
-    trackStatus.textContent = 'ready — tap play when you’re ready';
-    clearProgress();
-  });
-
-  /* ---------- KICK OFF AUTO-LOAD ---------- */
-  tryLoadHostedSong();
+  /* ---------- KICK OFF ---------- */
+  trackInfo.textContent = SONG_LABEL;
+  trackStatus.textContent = 'loading…';
+  tryCandidate(0);
 </script>
 
 </body>
